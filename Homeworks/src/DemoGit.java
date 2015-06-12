@@ -1,14 +1,33 @@
 import java.util.Scanner;
 
 /**
- * Created by igor on 11.06.2015.
+ * Test task "Use try catch"
+ *
+ * @author Tatsyana
  */
 public class DemoGit {
     public static void main(String[] args) {
         int n;
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        System.out.println(n);
+
+
+        do {
+            Scanner scanner = new Scanner(System.in);
+            try {
+                System.out.println("Введите число: ");
+                n = scanner.nextInt();
+
+                if (n % 3 == 0) {
+                    System.out.println("Число " + n + " делится нацело на 3.");
+                } else {
+                    System.out.println(String.format("Число %d не делится нацело на 3.", n));
+                }
+                break;
+            } catch (Exception e) {
+                System.err.println("Вы ввели не число. Повторите попытку. Ошибка: " + e);
+
+            }
+        } while (true);
+
 
     }
 }
