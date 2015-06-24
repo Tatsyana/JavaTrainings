@@ -1,4 +1,4 @@
-package com.itclass.phonebook.domain;
+package com.itclass.adressbook.domain;
 
 /**
  * @author Tatsyana.
@@ -6,6 +6,7 @@ package com.itclass.phonebook.domain;
 public class NumberPhone {
     private String type;
     private String number;
+    //types []
 
     public NumberPhone(String type, String number) {
         this.type = type;

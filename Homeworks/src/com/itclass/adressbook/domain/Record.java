@@ -1,4 +1,4 @@
-package com.itclass.phonebook.domain;
+package com.itclass.adressbook.domain;
 
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * @author Tatsyana.
  */
-public class PhoneBook {
+public class Record {
     private static AtomicLong uniqueId = new AtomicLong();
     private long id;
     private String firstName;
@@ -14,7 +14,7 @@ public class PhoneBook {
     private NumberPhone phone;
     private Category category;
 
-    public PhoneBook() {
+    public Record() {
         this.id = uniqueId.getAndIncrement();
         firstName = "Unknown Name";
         lastName = "Unknown Last Name";
@@ -23,7 +23,7 @@ public class PhoneBook {
 
     }
 
-    public PhoneBook(long id, String firstName, String lastName, NumberPhone phone, Category category) {
+    public Record(long id, String firstName, String lastName, NumberPhone phone, Category category) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,9 +31,9 @@ public class PhoneBook {
         this.category = category;
     }
 
-    public static PhoneBook create(String firstName, String lastName, NumberPhone phone, Category category){
+    public static Record create(String firstName, String lastName, NumberPhone phone, Category category){
         long id = uniqueId.getAndIncrement();
-        return new PhoneBook(id,firstName, lastName,phone,category);
+        return new Record(id,firstName, lastName,phone,category);
     }
 
     public long getId() {
@@ -73,42 +73,42 @@ public class PhoneBook {
     }
 
     // анонимные nested-классы (можно вызывать по имени внешнего класса)
-
-    public static Comparator<PhoneBook> compareById = new Comparator<PhoneBook>() {
+//  TODO: java 8 лямды
+    public static Comparator<Record> compareById = new Comparator<Record>() {
         @Override
-        public int compare(PhoneBook o1, PhoneBook o2) {
+        public int compare(Record o1, Record o2) {
             return Long.compare(o1.id,o2.id);
 
         }
     };
 
-    public static Comparator<PhoneBook> compareByLastName= new Comparator<PhoneBook>() {
+    public static Comparator<Record> compareByLastName= new Comparator<Record>() {
         @Override
-        public int compare(PhoneBook o1, PhoneBook o2) {
+        public int compare(Record o1, Record o2) {
             return o1.getLastName().compareTo(o2.getLastName());
 
         }
     };
 
-    public static Comparator<PhoneBook> compareByFirstName= new Comparator<PhoneBook>() {
+    public static Comparator<Record> compareByFirstName= new Comparator<Record>() {
         @Override
-        public int compare(PhoneBook o1, PhoneBook o2) {
+        public int compare(Record o1, Record o2) {
             return o1.getFirstName().compareTo(o2.getFirstName());
 
         }
     };
 
-    public static Comparator<PhoneBook> compareByTypeOfNumber= new Comparator<PhoneBook>() {
+    public static Comparator<Record> compareByTypeOfNumber= new Comparator<Record>() {
         @Override
-        public int compare(PhoneBook o1, PhoneBook o2) {
+        public int compare(Record o1, Record o2) {
             return o1.getPhone().getType().compareTo(o2.getPhone().getType());
 
         }
     };
 
-    public static Comparator<PhoneBook> compareByCategory = new Comparator<PhoneBook>() {
+    public static Comparator<Record> compareByCategory = new Comparator<Record>() {
         @Override
-        public int compare(PhoneBook o1, PhoneBook o2) {
+        public int compare(Record o1, Record o2) {
             return o1.getCategory().compareTo(o2.getCategory());
 
         }
@@ -116,7 +116,7 @@ public class PhoneBook {
 
 //    @Override
 //    public String toString() {
-//        return "PhoneBook{" +
+//        return "Record{" +
 //                "id=" + id +
 //                ", firstName='" + firstName + '\'' +
 //                ", lastName='" + lastName + '\'' +

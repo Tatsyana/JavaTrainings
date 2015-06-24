@@ -1,4 +1,4 @@
-package com.itclass.phonebook.domain;
+package com.itclass.adressbook.domain;
 
 /**
  * @author Tatsyana.
