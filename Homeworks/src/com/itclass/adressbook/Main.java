@@ -21,7 +21,7 @@ public class Main {
         InMemoryRepository.getInstance().add(Record.create("Татьяна", "Шерстобитова", new NumberPhone("Рабочий", "2345"), Category.FAMILY));
         String key = "";
         while (true) {
-            System.out.println("Press add or a to add:");
+            System.out.println("Press add or a to add: ");
             System.out.println("Press del or d to delete: ");
             System.out.println("Press edit or e to edit: ");
             System.out.println("Press sort or s to sort ");
