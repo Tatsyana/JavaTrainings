@@ -23,7 +23,7 @@ public class InMemoryRepository  implements Repository<Record, Long> {
 
     public static InMemoryRepository getInstance(){
          if(instance==null){
-             instance= new InMemoryRepository();
+             instance = new InMemoryRepository();
          }
         return instance;
     }

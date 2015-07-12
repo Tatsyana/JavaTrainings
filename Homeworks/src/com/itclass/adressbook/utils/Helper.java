@@ -4,6 +4,7 @@ import com.itclass.adressbook.domain.Category;
 import com.itclass.adressbook.domain.NumberPhone;
 import com.itclass.adressbook.domain.Record;
 import com.itclass.adressbook.repository.InMemoryRepository;
+import com.itclass.adressbook.repository.Repository;
 
 import javax.xml.bind.ValidationException;
 import java.io.BufferedReader;
@@ -18,7 +19,29 @@ import java.util.regex.Pattern;
  */
 public class Helper {
 
-    public static void addRecord() {
+    private Repository<Record,Long> repository;
+
+    private static Helper instance = null;
+
+    public Helper(Repository<Record, Long> repository) {
+        this.repository = repository;
+    }
+
+    public static Helper getInstance() {
+        if (instance != null) {
+            return instance;
+        }
+        throw new IllegalStateException("Helper was not initialized");
+    }
+
+    public static void init(Repository<Record, Long> repository) {
+        if (repository != null) {
+            instance = new Helper(repository);
+        }
+        throw new IllegalArgumentException("Repository is null");
+    }
+
+    public void addRecord() {
         Record record = null;
             try {
                 record = readPhone();
@@ -26,7 +49,7 @@ public class Helper {
                 System.err.println("Ошибка ввода: " + e);
         }
 
-        InMemoryRepository.getInstance().add(record);
+        repository.add(record);
     }
 
     public static Record readPhone() throws Exception{
@@ -123,9 +146,9 @@ public class Helper {
         return  id;
     }
 
-    public static void deleteRecord(){
+    public void deleteRecord(){
 
-        InMemoryRepository.getInstance().remove(InMemoryRepository.getInstance().find(readId()));
+        repository.remove(repository.find(readId()));
     }
 
   //  public static void deleteRecord(InMemoryRepository bookList){
@@ -134,9 +157,9 @@ public class Helper {
   //  }
 
 
-    public static void editRecord(){
+    public  void editRecord(){
 
-        Record record = InMemoryRepository.getInstance().find(readId());
+        Record record = repository.find(readId());
         System.out.println("Измененное имя: ");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String firstName = null;
@@ -222,7 +245,7 @@ public class Helper {
         record.setCategory(cat);
     }
 
-    public  static  void sortRecord() {
+    public   void sortRecord() {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String sort = "";
@@ -237,16 +260,16 @@ public class Helper {
         }
         switch (sort) {
             case "1":
-                InMemoryRepository.getInstance().sort(Record.compareByLastName);
+                repository.sort(Record.compareByLastName);
                 break;
             case "2":
-                InMemoryRepository.getInstance().sort(Record.compareByFirstName);
+                repository.sort(Record.compareByFirstName);
                 break;
             case "3":
-                InMemoryRepository.getInstance().sort(Record.compareByTypeOfNumber);
+                repository.sort(Record.compareByTypeOfNumber);
                 break;
             case "4":
-                InMemoryRepository.getInstance().sort(Record.compareByCategory);
+                repository.sort(Record.compareByCategory);
                 break;
             default:
                 System.out.println("Некорректный ввод.");
@@ -254,8 +277,8 @@ public class Helper {
         }
     }
 
-    public  static  void printAllRecord(){
-        final List<Record> list = InMemoryRepository.getInstance().getAll();
+    public  void printAllRecord(){
+        final List<Record> list = repository.getAll();
         for (Record a : list) {
             System.out.println(a.toString());
         }
@@ -274,8 +297,8 @@ public class Helper {
         final String PHONE_NUMBER_PATTERN =
                 "^(\\s*\\d\\s*){6,12}$";
         Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN, Pattern.CASE_INSENSITIVE);
-        String inputText = number;
-            Matcher matcher = pattern.matcher(inputText);
+     //   String inputText = number;
+            Matcher matcher = pattern.matcher(number);
             if (!matcher.matches()) {
                 throw new ValidationException("Неверный формат: " );
             }
@@ -287,8 +310,8 @@ public class Helper {
         final String NAME_PATTERN =
                 "^[a-zA-Z|\\s]{1,100}$";
         Pattern pattern = Pattern.compile(NAME_PATTERN, Pattern.CASE_INSENSITIVE);
-        String inputText = name;
-        Matcher matcher = pattern.matcher(inputText);
+      //  String inputText = name;
+        Matcher matcher = pattern.matcher(name);
         if (!matcher.matches()) {
             throw new ValidationException("Неверный формат: " );
         }
