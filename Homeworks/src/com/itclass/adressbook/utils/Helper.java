@@ -37,8 +37,9 @@ public class Helper {
     public static void init(Repository<Record, Long> repository) {
         if (repository != null) {
             instance = new Helper(repository);
+        } else {
+            throw new IllegalArgumentException("Repository is null");
         }
-        throw new IllegalArgumentException("Repository is null");
     }
 
     public void addRecord() {

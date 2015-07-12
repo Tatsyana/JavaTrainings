@@ -38,10 +38,7 @@ public class TxtRepository implements Repository<Record, Long> {
             throw new IllegalArgumentException("Unable to add record, because it is null.");
         }
         writeToFile(entity);
-
-
     }
-
 
     @Override
     public void remove(Record entity) {
@@ -69,24 +66,53 @@ public class TxtRepository implements Repository<Record, Long> {
         writeToFile(list);
     }
 
+//    private void writeToFile(){
+//
+//        try (
+//                BufferedWriter bufferedWriter =
+//                        new BufferedWriter(new FileWriter(FILE_PATH));
+//                PrintWriter out = new PrintWriter(bufferedWriter)
+//        ) {
+//            bufferedWriter.write("");
+//            bufferedWriter.close();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void clearFile() {
+        try {
+            BufferedWriter bufferedWriter =
+                    new BufferedWriter(new FileWriter(FILE_PATH, false));
+            PrintWriter out = new PrintWriter(bufferedWriter);
+            out.write("");
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void writeToFile(List<Record> records) {
 
+       // File file = new File(FILE_PATH);
         try (
                 BufferedWriter bufferedWriter =
-                        new BufferedWriter(new FileWriter(FILE_PATH));
+                        new BufferedWriter(new FileWriter(FILE_PATH, false));
                 PrintWriter out = new PrintWriter(bufferedWriter)
         ) {
+          //  file.delete();
+          //  file.createNewFile();
             for (Record record : records) {
-
-                out.format("%d %s,%s,%s,%s\n",
+                out.format("%d;%s;%s;%s;%s;%s\n",
                         record.getId(),
                         record.getFirstName(),
                         record.getLastName(),
                         record.getPhone().getNumber(),
+                        record.getPhone().getType(),
                         record.getCategory().getId());
             }
-
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,14 +127,15 @@ public class TxtRepository implements Repository<Record, Long> {
                         new BufferedWriter(new FileWriter(FILE_PATH,true));
                 PrintWriter out = new PrintWriter(bufferedWriter)
         ) {
-            out.format("%d %s,%s,%s,%s\n",
+            out.format("%d;%s;%s;%s;%s;%s\n",
                     entity.getId(),
                     entity.getFirstName(),
                     entity.getLastName(),
                     entity.getPhone().getNumber(),
+                    entity.getPhone().getType(),
                     entity.getCategory().getId());
 
-
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,16 +151,16 @@ public class TxtRepository implements Repository<Record, Long> {
 
             while ( (s=reader.readLine())!=null ) {
 
-                String[] strings = s.trim().split(" ");
+                String[] strings = s.trim().split(";");
 
-                if(strings.length!=6) {
-                    continue;
-                }
+//                if(strings.length!=6) {
+//                    continue;
+//                }
                 long id = Long.parseLong(strings[0].trim());
                 String firstName = strings[1].trim();
                 String lastName = strings[2].trim();
-                String  type = (strings[3].trim());
-                String number = (strings[4].trim());
+                String number = (strings[3].trim());
+                String type = (strings[4].trim());
                 String cat = (strings[5].trim());
                 Category categ = Category.getCategory(cat);
                 NumberPhone num = new NumberPhone(type, number);
@@ -143,11 +170,10 @@ public class TxtRepository implements Repository<Record, Long> {
                 records.add(phoneRecord);
 
             }
-
+        reader.close();
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-
 
         return  records;
     }

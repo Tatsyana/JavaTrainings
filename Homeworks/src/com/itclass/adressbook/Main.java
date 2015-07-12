@@ -5,6 +5,7 @@ import com.itclass.adressbook.domain.NumberPhone;
 import com.itclass.adressbook.domain.Record;
 import com.itclass.adressbook.repository.InMemoryRepository;
 import com.itclass.adressbook.repository.Repository;
+import com.itclass.adressbook.repository.TxtRepository;
 import com.itclass.adressbook.utils.Helper;
 
 import java.io.BufferedReader;
@@ -19,10 +20,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        InMemoryRepository.getInstance().add(Record.create("Александр", "Сайчук", new NumberPhone("Мобильный", "37545"), Category.NONE));
-        InMemoryRepository.getInstance().add(Record.create("Людмила", "Афанасенко", new NumberPhone("Домашний", "12345"), Category.COLLEAGUE));
-        InMemoryRepository.getInstance().add(Record.create("Татьяна", "Шерстобитова", new NumberPhone("Рабочий", "2345"), Category.FAMILY));
-        Helper.init(InMemoryRepository.getInstance());
+//        InMemoryRepository.getInstance().add(Record.create("Александр", "Сайчук", new NumberPhone("Мобильный", "37545"), Category.NONE));
+//        InMemoryRepository.getInstance().add(Record.create("Людмила", "Афанасенко", new NumberPhone("Домашний", "12345"), Category.COLLEAGUE));
+//        InMemoryRepository.getInstance().add(Record.create("Татьяна", "Шерстобитова", new NumberPhone("Рабочий", "2345"), Category.FAMILY));
+        Repository<Record, Long> repository = new TxtRepository("Homeworks/src/records.txt");
+        Helper.init(repository);
         String key = "";
         while (true) {
             System.out.println("Press add or a to add: ");
