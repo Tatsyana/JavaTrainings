@@ -16,6 +16,7 @@ public class Record {
 
     public Record() {
         this.id = uniqueId.getAndIncrement();
+        System.out.println("ID = " + this.id);
         firstName = "Unknown Name";
         lastName = "Unknown Last Name";
         phone = new NumberPhone("Unknown type", "None");

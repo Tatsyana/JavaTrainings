@@ -244,6 +244,7 @@ public class Helper {
             cat = Category.NONE;
         }
         record.setCategory(cat);
+        repository.update();
     }
 
     public   void sortRecord() {

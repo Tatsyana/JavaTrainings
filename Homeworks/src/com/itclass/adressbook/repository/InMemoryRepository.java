@@ -66,4 +66,9 @@ public class InMemoryRepository  implements Repository<Record, Long> {
     public void sort(Comparator<? super Record> comparator){
         Collections.sort(list, comparator);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

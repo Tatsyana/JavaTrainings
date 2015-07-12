@@ -16,11 +16,21 @@ import java.util.List;
 public class TxtRepository implements Repository<Record, Long> {
 
     final String FILE_PATH;
+    public List<Record> list=null;
 
     public TxtRepository(String file) {
 
         FILE_PATH = file;
 
+    }
+
+    public List<Record> getList(){
+
+        if(list==null){
+
+            list= getAll();
+        }
+        return list;
     }
 
     @Override
@@ -43,15 +53,15 @@ public class TxtRepository implements Repository<Record, Long> {
     @Override
     public void remove(Record entity) {
 
-        List<Record> records = getAll();
-        records.remove(entity);
-        writeToFile(records);
+
+        getList().remove(entity);
+        writeToFile(getList());
     }
 
     @Override
     public Record find(Long id) {
-        List<Record> list = getAll();
-        for (Record record : list) {
+
+        for (Record record :  getList()) {
             if (record.getId() == id) {
                 return record;
             }
@@ -61,9 +71,14 @@ public class TxtRepository implements Repository<Record, Long> {
 
     public void sort(Comparator<? super Record> comparator) {
 
-        List<Record> list = getAll();
-        Collections.sort(list, comparator);
-        writeToFile(list);
+
+        Collections.sort(getList(), comparator);
+        writeToFile(getList());
+    }
+
+    @Override
+    public void update() {
+        writeToFile(getList());
     }
 
 //    private void writeToFile(){
@@ -83,11 +98,13 @@ public class TxtRepository implements Repository<Record, Long> {
 
     private void clearFile() {
         try {
+            FileWriter writer = new FileWriter(FILE_PATH);
             BufferedWriter bufferedWriter =
-                    new BufferedWriter(new FileWriter(FILE_PATH, false));
+                    new BufferedWriter(writer);
             PrintWriter out = new PrintWriter(bufferedWriter);
             out.write("");
-            bufferedWriter.close();
+            writer.close();
+          //  bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,14 +112,16 @@ public class TxtRepository implements Repository<Record, Long> {
 
     private void writeToFile(List<Record> records) {
 
+      //  clearFile();
        // File file = new File(FILE_PATH);
         try (
+                FileWriter writer = new FileWriter(FILE_PATH);
                 BufferedWriter bufferedWriter =
-                        new BufferedWriter(new FileWriter(FILE_PATH, false));
+                        new BufferedWriter(writer);
                 PrintWriter out = new PrintWriter(bufferedWriter)
+
         ) {
-          //  file.delete();
-          //  file.createNewFile();
+
             for (Record record : records) {
                 out.format("%d;%s;%s;%s;%s;%s\n",
                         record.getId(),
@@ -112,6 +131,7 @@ public class TxtRepository implements Repository<Record, Long> {
                         record.getPhone().getType(),
                         record.getCategory().getId());
             }
+//            writer.close();
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,8 +143,9 @@ public class TxtRepository implements Repository<Record, Long> {
     private void writeToFile(Record entity) {
 
         try (
+                FileWriter writer = new FileWriter(FILE_PATH, true);
                 BufferedWriter bufferedWriter =
-                        new BufferedWriter(new FileWriter(FILE_PATH,true));
+                        new BufferedWriter(writer);
                 PrintWriter out = new PrintWriter(bufferedWriter)
         ) {
             out.format("%d;%s;%s;%s;%s;%s\n",
@@ -135,7 +156,9 @@ public class TxtRepository implements Repository<Record, Long> {
                     entity.getPhone().getType(),
                     entity.getCategory().getId());
 
+           // writer.close();
             out.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,8 +167,10 @@ public class TxtRepository implements Repository<Record, Long> {
     private List<Record> readFromFile() {
         List<Record> records = new ArrayList<>();
 
-        try( BufferedReader reader =
-                     new BufferedReader( new FileReader(FILE_PATH))) {
+        try(
+                FileReader freader = new FileReader(FILE_PATH);
+                BufferedReader reader =
+                     new BufferedReader(freader)) {
 
             String s;
 
@@ -170,13 +195,17 @@ public class TxtRepository implements Repository<Record, Long> {
                 records.add(phoneRecord);
 
             }
-        reader.close();
+        freader.close();
+            reader.close();
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
         return  records;
     }
+
+
 }
 
 

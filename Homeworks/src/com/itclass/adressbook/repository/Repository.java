@@ -1,5 +1,7 @@
 package com.itclass.adressbook.repository;
 
+import com.itclass.adressbook.domain.Record;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,5 +21,7 @@ public interface Repository<T, ID> {
      T find(ID id);
 
      void sort(Comparator<? super T> comparator);
+
+     void update();
 
 }
