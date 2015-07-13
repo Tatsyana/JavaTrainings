@@ -3,6 +3,7 @@ package com.itclass.adressbook;
 import com.itclass.adressbook.domain.Category;
 import com.itclass.adressbook.domain.NumberPhone;
 import com.itclass.adressbook.domain.Record;
+import com.itclass.adressbook.repository.BinaryRepository;
 import com.itclass.adressbook.repository.InMemoryRepository;
 import com.itclass.adressbook.repository.Repository;
 import com.itclass.adressbook.repository.TxtRepository;
@@ -23,7 +24,7 @@ public class Main {
 //        InMemoryRepository.getInstance().add(Record.create("Александр", "Сайчук", new NumberPhone("Мобильный", "37545"), Category.NONE));
 //        InMemoryRepository.getInstance().add(Record.create("Людмила", "Афанасенко", new NumberPhone("Домашний", "12345"), Category.COLLEAGUE));
 //        InMemoryRepository.getInstance().add(Record.create("Татьяна", "Шерстобитова", new NumberPhone("Рабочий", "2345"), Category.FAMILY));
-        Repository<Record, Long> repository = new TxtRepository("Homeworks/src/records.txt");
+        Repository<Record, Long> repository = new BinaryRepository("Homeworks/src/binary.txt");
         Helper.init(repository);
         String key = "";
         while (true) {
@@ -58,9 +59,11 @@ public class Main {
                     Helper.getInstance().editRecord();
                     break;
                 case "sort":
+                case "s":
                     Helper.getInstance().sortRecord();
 
                     //осознанно не поставлен break: после сортировки вывод информации
+                case "p":
                 case "print":
                     Helper.getInstance().printAllRecord();
                     //        printBooks(bookList);

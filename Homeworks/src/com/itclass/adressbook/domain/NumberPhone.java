@@ -1,9 +1,11 @@
 package com.itclass.adressbook.domain;
 
+import java.io.Serializable;
+
 /**
  * @author Tatsyana.
  */
-public class NumberPhone {
+public class NumberPhone implements Serializable{
     private String type;
     private String number;
     //types []

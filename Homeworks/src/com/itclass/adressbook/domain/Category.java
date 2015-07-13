@@ -1,9 +1,11 @@
 package com.itclass.adressbook.domain;
 
+import java.io.Serializable;
+
 /**
  * @author Tatsyana.
  */
-public enum Category{
+public enum Category implements Serializable{
     FRIEND("1"),
     FAMILY("2"),
     COLLEAGUE("3"),

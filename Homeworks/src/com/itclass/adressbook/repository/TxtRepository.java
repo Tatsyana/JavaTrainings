@@ -16,7 +16,7 @@ import java.util.List;
 public class TxtRepository implements Repository<Record, Long> {
 
     final String FILE_PATH;
-    public List<Record> list=null;
+    public List<Record> list = null;
 
     public TxtRepository(String file) {
 
@@ -24,19 +24,11 @@ public class TxtRepository implements Repository<Record, Long> {
 
     }
 
-    public List<Record> getList(){
-
-        if(list==null){
-
-            list= getAll();
-        }
-        return list;
-    }
-
     @Override
     public List<Record> getAll() {
-
-        List<Record> list = readFromFile();
+        if (list == null) {
+            list = readFromFile();
+        }
         return list;
     }
 
@@ -47,21 +39,21 @@ public class TxtRepository implements Repository<Record, Long> {
         if (entity == null) {
             throw new IllegalArgumentException("Unable to add record, because it is null.");
         }
+        getAll().add(entity);
         writeToFile(entity);
     }
 
     @Override
     public void remove(Record entity) {
 
-
-        getList().remove(entity);
-        writeToFile(getList());
+        getAll().remove(entity);
+        writeToFile(getAll());
     }
 
     @Override
     public Record find(Long id) {
 
-        for (Record record :  getList()) {
+        for (Record record : getAll()) {
             if (record.getId() == id) {
                 return record;
             }
@@ -72,29 +64,15 @@ public class TxtRepository implements Repository<Record, Long> {
     public void sort(Comparator<? super Record> comparator) {
 
 
-        Collections.sort(getList(), comparator);
-        writeToFile(getList());
+        Collections.sort(getAll(), comparator);
+        writeToFile(getAll());
     }
 
     @Override
     public void update() {
-        writeToFile(getList());
+        writeToFile(getAll());
     }
 
-//    private void writeToFile(){
-//
-//        try (
-//                BufferedWriter bufferedWriter =
-//                        new BufferedWriter(new FileWriter(FILE_PATH));
-//                PrintWriter out = new PrintWriter(bufferedWriter)
-//        ) {
-//            bufferedWriter.write("");
-//            bufferedWriter.close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void clearFile() {
         try {

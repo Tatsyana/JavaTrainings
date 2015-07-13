@@ -1,12 +1,13 @@
 package com.itclass.adressbook.domain;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Tatsyana.
  */
-public class Record {
+public class Record implements Serializable{
     private static AtomicLong uniqueId = new AtomicLong();
     private long id;
     private String firstName;
@@ -110,7 +111,7 @@ public class Record {
     public static Comparator<Record> compareByCategory = new Comparator<Record>() {
         @Override
         public int compare(Record o1, Record o2) {
-            return o1.getCategory().compareTo(o2.getCategory());
+            return o1.getCategory().name().compareTo(o2.getCategory().name());
 
         }
     };
