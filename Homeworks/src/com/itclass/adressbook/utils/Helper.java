@@ -11,6 +11,8 @@ import javax.xml.bind.ValidationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +26,7 @@ public class Helper {
 
     private static Helper instance = null;
 
-    public Helper(Repository<Record, Long> repository) {
+    private Helper(Repository<Record, Long> repository) {
         this.repository = repository;
     }
 
@@ -179,6 +181,7 @@ public class Helper {
         }
         record.setFirstName(firstName);
 
+
         System.out.println("Измененная фамилия: ");
         String lastName = null;
         while (true) {
@@ -245,6 +248,7 @@ public class Helper {
             cat = Category.NONE;
         }
         record.setCategory(cat);
+        record.setModifedDate(new Date());
         repository.update();
     }
 
@@ -286,6 +290,11 @@ public class Helper {
             System.out.println(a.toString());
         }
     }
+    public  void printAllRecord(List<Record> list){
+        for (Record a : list) {
+            System.out.println(a.toString());
+        }
+    }
 
 //    public static int validateNumberPhone(String number) {
 //        try {
@@ -321,6 +330,48 @@ public class Helper {
 
     }
 
+
+    public List<Record> filter() throws IOException {
+        List<Record> filtered = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = "";
+        System.out.println("1 - фильтрация по имени");
+        System.out.println("2 - фильтрация по фамилии");
+        System.out.println("3 - фильтрация по номеру");
+        System.out.println("4 - фильтрация по категории");
+        try {
+            line = br.readLine();
+        } catch (IOException e) {
+            System.err.println("Ошибка ввода." + e);
+        }
+        String str;
+        switch (line) {
+            case "1":
+                System.out.println("Введите фильтр: ");
+                str = br.readLine();
+                filtered = repository.filtr(Record.filtredByFirstName, str);
+                break;
+            case "2":
+                System.out.println("Введите фильтр: ");
+                str = br.readLine();
+                filtered = repository.filtr(Record.filtredByLastName, str);
+                break;
+            case "3":
+                System.out.println("Введите фильтр: ");
+                str = br.readLine();
+                filtered = repository.filtr(Record.filtredByNumber, str);
+                break;
+            case "4":
+                System.out.println("Введите фильтр: ");
+                str = br.readLine();
+                filtered = repository.filtr(Record.filtredByCategory, str);
+                break;
+            default:
+                System.out.println("Некорректный ввод.");
+                break;
+        }
+        return filtered;
+    }
 
 
 

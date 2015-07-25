@@ -1,5 +1,6 @@
 package com.itclass.adressbook.repository;
 
+import com.itclass.adressbook.domain.Predicate;
 import com.itclass.adressbook.domain.Record;
 
 import java.util.ArrayList;
@@ -70,5 +71,17 @@ public class InMemoryRepository  implements Repository<Record, Long> {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public List<Record> filtr(Predicate<Record> predicate, String str) {
+        List<Record> filtred = new ArrayList<>();
+
+        for(Record record : list){
+            if(predicate.predicate(record, str)){
+                filtred.add(record);
+            }
+        }
+        return  filtred;
     }
 }

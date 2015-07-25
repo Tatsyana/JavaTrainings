@@ -2,6 +2,7 @@ package com.itclass.adressbook.domain;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -14,6 +15,7 @@ public class Record implements Serializable{
     private String lastName;
     private NumberPhone phone;
     private Category category;
+    private Date modifedDate;
 
     public Record() {
         this.id = uniqueId.getAndIncrement();
@@ -22,6 +24,7 @@ public class Record implements Serializable{
         lastName = "Unknown Last Name";
         phone = new NumberPhone("Unknown type", "None");
         category = Category.NONE;
+        modifedDate = new Date();
 
     }
 
@@ -31,11 +34,20 @@ public class Record implements Serializable{
         this.lastName = lastName;
         this.phone = phone;
         this.category = category;
+        modifedDate = new Date();
     }
 
     public static Record create(String firstName, String lastName, NumberPhone phone, Category category){
         long id = uniqueId.getAndIncrement();
         return new Record(id,firstName, lastName,phone,category);
+    }
+
+    public Date getModifedDate() {
+        return modifedDate;
+    }
+
+    public void setModifedDate(Date modifedDate) {
+        this.modifedDate = modifedDate;
     }
 
     public long getId() {
@@ -115,6 +127,35 @@ public class Record implements Serializable{
 
         }
     };
+
+    public static Predicate<Record> filtredByFirstName = new Predicate<Record>() {
+        @Override
+        public boolean predicate(Record value, String str) {
+            return value.getFirstName().contains(str);
+        }
+    };
+
+    public static Predicate<Record> filtredByLastName = new Predicate<Record>() {
+        @Override
+        public boolean predicate(Record value, String str) {
+            return value.getLastName().contains(str);
+        }
+    };
+
+    public static Predicate<Record> filtredByNumber =  new Predicate<Record>() {
+        @Override
+        public boolean predicate(Record value, String str) {
+            return value.getPhone().getNumber().contains(str);
+        }
+    };
+
+    public static Predicate<Record> filtredByCategory =  new Predicate<Record>() {
+        @Override
+        public boolean predicate(Record value, String str) {
+            return value.getCategory().name().contains(str.toUpperCase());
+        }
+    };
+
 
 //    @Override
 //    public String toString() {

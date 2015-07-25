@@ -1,7 +1,9 @@
 package com.itclass.adressbook.repository;
 
+import com.itclass.adressbook.domain.Predicate;
 import com.itclass.adressbook.domain.Record;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface Repository<T, ID> {
 
      void update();
 
+     default List<T> filtr(Predicate<T> predicate, String str){
+      return new ArrayList<T>();}
 }
