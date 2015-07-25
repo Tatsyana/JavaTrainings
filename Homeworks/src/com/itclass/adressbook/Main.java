@@ -17,7 +17,6 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-      //  System.out.println(Category.FAMILY.name());
 
         InMemoryRepository.getInstance().add(Record.create("Александр", "Сайчук", new NumberPhone("Мобильный", "37545"), Category.NONE));
         InMemoryRepository.getInstance().add(Record.create("Людмила", "Афанасенко", new NumberPhone("Домашний", "12345"), Category.COLLEAGUE));
