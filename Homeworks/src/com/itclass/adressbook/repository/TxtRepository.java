@@ -177,6 +177,7 @@ public class TxtRepository implements Repository<Record, Long> {
             reader.close();
 
         } catch (IOException e) {
+            // TODO тоже самое что и в BinaryRepository ошибки должны обрабатываться выше, поэтому от сюда они просто выбрасываются наверх, здесь еще не известно как на них правильно реагировать
             System.err.println(e.getMessage());
         }
 

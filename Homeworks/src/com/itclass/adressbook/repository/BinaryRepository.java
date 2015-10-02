@@ -71,7 +71,7 @@ public class BinaryRepository implements Repository<Record, Long> {
         serizlization(getAll());
     }
 
-
+    // TODO все ошибки связанные с чтением файла должные пробрасываться из функции
     public List<Record> deserizlization() {
 
         List<Record> records = new ArrayList<>();
@@ -88,6 +88,7 @@ public class BinaryRepository implements Repository<Record, Long> {
             }
             objectOutputStream.close();
         } catch (IOException | ClassNotFoundException e) {
+            // TODO Эта ошибка не должна обрабатываться здесь, максимум что здесь должно быть это логирование
             e.printStackTrace();
         }
 
