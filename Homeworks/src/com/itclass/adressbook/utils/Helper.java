@@ -20,6 +20,21 @@ import java.util.regex.Pattern;
 /**
  * @author Tatsyana.
  */
+
+// TODO РІ СЌС‚РѕРј РєР»Р°СЃСЃРµ РѕС‡РµРЅСЊ РјРЅРѕРіРѕ РґСѓР±Р»РёСЂРѕРІР°РЅРёСЏ РєРѕРґР° РЅР°РїСЂРёРјРµСЂ РїРѕРґРѕР±РЅС‹Рµ СЃС‚СЂРѕРєРё РїРѕРІС‚РѕСЂСЏСЋС‚СЃСЏ РјРЅРѕРіРѕ СЂР°Р·, РЅСѓР¶РЅРѕ РІС‹РЅРµСЃС‚Рё РїРѕРІС‚РѕСЂСЏСЋС‰РёР№СЃСЏ РєРѕРґ РІ РѕС‚РґРµР»СЊРЅСѓСЋ С„СѓРЅРєС†РёСЋ:
+//while (true) {
+//        System.out.println("Р”РѕР±Р°РІСЊС‚Рµ С„Р°РјРёР»РёСЋ: ");
+//        fam = br.readLine();
+//        try {
+//        validateName(fam);
+//        } catch (IOException e) {
+//        e.printStackTrace();
+//        } catch (ValidationException e) {
+//        System.out.println(e.getMessage());
+//        continue;
+//        }
+//        break;
+//        }
 public class Helper {
 
     private Repository<Record,Long> repository;
@@ -50,7 +65,7 @@ public class Helper {
             try {
                 record = readPhone();
             } catch (Exception e) {
-                System.err.println("Ошибка ввода: " + e);
+                System.err.println("РћС€РёР±РєР° РІРІРѕРґР°: " + e);
         }
 
         repository.add(record);
@@ -61,7 +76,7 @@ public class Helper {
 
         String name = null;
         while (true) {
-            System.out.println("Добавить имя: ");
+            System.out.println("Р”РѕР±Р°РІРёС‚СЊ РёРјСЏ: ");
             name = br.readLine();
             try {
                 validateName(name);
@@ -76,7 +91,7 @@ public class Helper {
 
         String fam;
         while (true) {
-        System.out.println("Добавьте фамилию: ");
+        System.out.println("Р”РѕР±Р°РІСЊС‚Рµ С„Р°РјРёР»РёСЋ: ");
          fam = br.readLine();
             try {
                 validateName(fam);
@@ -90,7 +105,7 @@ public class Helper {
         }
         String number;
         while(true) {
-        System.out.println("Добавить номер телефона (не менее 6-ти символов): ");
+        System.out.println("Р”РѕР±Р°РІРёС‚СЊ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° (РЅРµ РјРµРЅРµРµ 6-С‚Рё СЃРёРјРІРѕР»РѕРІ): ");
         number = br.readLine();
 
             try {
@@ -105,31 +120,31 @@ public class Helper {
         }
 
 
-            System.out.println("Тип номера: ");
-            System.out.println("1-Домашний: ");
-            System.out.println("2-Рабочий: ");
-            System.out.println("3-Мобильный: ");
+            System.out.println("РўРёРї РЅРѕРјРµСЂР°: ");
+            System.out.println("1-Р”РѕРјР°С€РЅРёР№: ");
+            System.out.println("2-Р Р°Р±РѕС‡РёР№: ");
+            System.out.println("3-РњРѕР±РёР»СЊРЅС‹Р№: ");
             String type = br.readLine();
             switch (type) {
                 case "1":
-                    type = "Домашний";
+                    type = "Р”РѕРјР°С€РЅРёР№";
                     break;
                 case "2":
-                    type = "Рабочий";
+                    type = "Р Р°Р±РѕС‡РёР№";
                     break;
                 case "3":
-                    type = "Мобильный";
+                    type = "РњРѕР±РёР»СЊРЅС‹Р№";
                     break;
                 default:
-                    type = "Не определен";
+                    type = "РќРµ РѕРїСЂРµРґРµР»РµРЅ";
                     break;
             }
 
             NumberPhone numberPhone = new NumberPhone(number, type);
-            System.out.println("Категория: ");
-            System.out.println("Нажмите 1 - Друзья: ");
-            System.out.println("Нажмите 2 - Семья: ");
-            System.out.println("Нажмите 3 - Коллеги: ");
+            System.out.println("РљР°С‚РµРіРѕСЂРёСЏ: ");
+            System.out.println("РќР°Р¶РјРёС‚Рµ 1 - Р”СЂСѓР·СЊСЏ: ");
+            System.out.println("РќР°Р¶РјРёС‚Рµ 2 - РЎРµРјСЊСЏ: ");
+            System.out.println("РќР°Р¶РјРёС‚Рµ 3 - РљРѕР»Р»РµРіРё: ");
             String key = br.readLine();
             Category cat = Category.getCategory(key);
 
@@ -139,7 +154,7 @@ public class Helper {
     public static long readId(){
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Введите id: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ id: ");
         long id = 0l;
         try {
             String del = br.readLine();
@@ -157,14 +172,14 @@ public class Helper {
 
   //  public static void deleteRecord(InMemoryRepository bookList){
 
-  //      bookList.remove(readId(bookList)); перегрузить метод remove по id InMemoryRepository
+  //      bookList.remove(readId(bookList)); РїРµСЂРµРіСЂСѓР·РёС‚СЊ РјРµС‚РѕРґ remove РїРѕ id InMemoryRepository
   //  }
 
 
     public  void editRecord(){
 
         Record record = repository.find(readId());
-        System.out.println("Измененное имя: ");
+        System.out.println("РР·РјРµРЅРµРЅРЅРѕРµ РёРјСЏ: ");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String firstName = null;
         while (true) {
@@ -172,7 +187,7 @@ public class Helper {
                 firstName = br.readLine();
                 validateName(firstName);
             } catch (IOException e) {
-                System.err.println("Ошибка ввода." + e);//ввод разделен от изменения
+                System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);//РІРІРѕРґ СЂР°Р·РґРµР»РµРЅ РѕС‚ РёР·РјРµРЅРµРЅРёСЏ
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -182,14 +197,14 @@ public class Helper {
         record.setFirstName(firstName);
 
 
-        System.out.println("Измененная фамилия: ");
+        System.out.println("РР·РјРµРЅРµРЅРЅР°СЏ С„Р°РјРёР»РёСЏ: ");
         String lastName = null;
         while (true) {
             try {
                 lastName = br.readLine();
                 validateName(lastName);
             } catch (IOException e) {
-                System.err.println("Ошибка ввода." + e);
+                System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
             }catch (ValidationException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -198,7 +213,7 @@ public class Helper {
         }
         record.setLastName(lastName);
 
-        System.out.println("Измененный номер телефона: ");
+        System.out.println("РР·РјРµРЅРµРЅРЅС‹Р№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: ");
         String number = null;
         String type = null;
         while (true) {
@@ -206,27 +221,27 @@ public class Helper {
                 number = br.readLine();
                 validateNumberPhone(number);
 
-                System.out.println("Измененный тип телефона: ");
-                System.out.println("1-Домашний: ");
-                System.out.println("2-Рабочий: ");
-                System.out.println("3-Мобильный: ");
+                System.out.println("РР·РјРµРЅРµРЅРЅС‹Р№ С‚РёРї С‚РµР»РµС„РѕРЅР°: ");
+                System.out.println("1-Р”РѕРјР°С€РЅРёР№: ");
+                System.out.println("2-Р Р°Р±РѕС‡РёР№: ");
+                System.out.println("3-РњРѕР±РёР»СЊРЅС‹Р№: ");
                 type = br.readLine();
                 switch (type) {
                     case "1":
-                        type = "Домашний";
+                        type = "Р”РѕРјР°С€РЅРёР№";
                         break;
                     case "2":
-                        type = "Рабочий";
+                        type = "Р Р°Р±РѕС‡РёР№";
                         break;
                     case "3":
-                        type = "Мобильный";
+                        type = "РњРѕР±РёР»СЊРЅС‹Р№";
                         break;
                     default:
-                        type = "Не определен";
+                        type = "РќРµ РѕРїСЂРµРґРµР»РµРЅ";
                         break;
                 }
             } catch (IOException e) {
-                System.err.println("Ошибка ввода." + e);
+                System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -235,11 +250,11 @@ public class Helper {
         }
         record.setPhone(new NumberPhone(number, type));
 
-        System.out.println("Измененная категория: ");
+        System.out.println("РР·РјРµРЅРµРЅРЅР°СЏ РєР°С‚РµРіРѕСЂРёСЏ: ");
         Category cat;
-        System.out.println("Нажмите 1 - Семья: ");
-        System.out.println("Нажмите 2 - Друзья: ");
-        System.out.println("Нажмите 3 - Коллеги: ");
+        System.out.println("РќР°Р¶РјРёС‚Рµ 1 - РЎРµРјСЊСЏ: ");
+        System.out.println("РќР°Р¶РјРёС‚Рµ 2 - Р”СЂСѓР·СЊСЏ: ");
+        System.out.println("РќР°Р¶РјРёС‚Рµ 3 - РљРѕР»Р»РµРіРё: ");
         try {
             String key = br.readLine();
             cat = Category.getCategory(key);
@@ -256,14 +271,14 @@ public class Helper {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String sort = "";
-        System.out.println("1-Сортировка по фамилии");
-        System.out.println("2-Сортировка по имени");
-        System.out.println("3-Сортировка по типу номера");
-        System.out.println("4-Сортировка по категории");
+        System.out.println("1-РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ С„Р°РјРёР»РёРё");
+        System.out.println("2-РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РёРјРµРЅРё");
+        System.out.println("3-РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ С‚РёРїСѓ РЅРѕРјРµСЂР°");
+        System.out.println("4-РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёРё");
         try {
             sort = br.readLine();
         } catch (IOException e) {
-            System.err.println("Ошибка ввода." + e);
+            System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
         }
         switch (sort) {
             case "1":
@@ -279,7 +294,7 @@ public class Helper {
                 repository.sort(Record.compareByCategory);
                 break;
             default:
-                System.out.println("Некорректный ввод.");
+                System.out.println("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ.");
                 break;
         }
     }
@@ -300,8 +315,8 @@ public class Helper {
 //        try {
 //            return Integer.parseInt(number);
 //        } catch (NumberFormatException e) {
-//            System.err.println("Неверный формат" + e);
-//            throw new NumberFormatException("Неверный формат: " + e);
+//            System.err.println("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚" + e);
+//            throw new NumberFormatException("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚: " + e);
 //        }
 //    }
 
@@ -312,7 +327,7 @@ public class Helper {
      //   String inputText = number;
             Matcher matcher = pattern.matcher(number);
             if (!matcher.matches()) {
-                throw new ValidationException("Неверный формат: " );
+                throw new ValidationException("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚: " );
             }
 
     }
@@ -325,7 +340,7 @@ public class Helper {
       //  String inputText = name;
         Matcher matcher = pattern.matcher(name);
         if (!matcher.matches()) {
-            throw new ValidationException("Неверный формат: " );
+            throw new ValidationException("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚: " );
         }
 
     }
@@ -335,39 +350,39 @@ public class Helper {
         List<Record> filtered = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = "";
-        System.out.println("1 - фильтрация по имени");
-        System.out.println("2 - фильтрация по фамилии");
-        System.out.println("3 - фильтрация по номеру");
-        System.out.println("4 - фильтрация по категории");
+        System.out.println("1 - С„РёР»СЊС‚СЂР°С†РёСЏ РїРѕ РёРјРµРЅРё");
+        System.out.println("2 - С„РёР»СЊС‚СЂР°С†РёСЏ РїРѕ С„Р°РјРёР»РёРё");
+        System.out.println("3 - С„РёР»СЊС‚СЂР°С†РёСЏ РїРѕ РЅРѕРјРµСЂСѓ");
+        System.out.println("4 - С„РёР»СЊС‚СЂР°С†РёСЏ РїРѕ РєР°С‚РµРіРѕСЂРёРё");
         try {
             line = br.readLine();
         } catch (IOException e) {
-            System.err.println("Ошибка ввода." + e);
+            System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
         }
         String str;
         switch (line) {
             case "1":
-                System.out.println("Введите фильтр: ");
+                System.out.println("Р’РІРµРґРёС‚Рµ С„РёР»СЊС‚СЂ: ");
                 str = br.readLine();
                 filtered = repository.filtr(Record.filtredByFirstName, str);
                 break;
             case "2":
-                System.out.println("Введите фильтр: ");
+                System.out.println("Р’РІРµРґРёС‚Рµ С„РёР»СЊС‚СЂ: ");
                 str = br.readLine();
                 filtered = repository.filtr(Record.filtredByLastName, str);
                 break;
             case "3":
-                System.out.println("Введите фильтр: ");
+                System.out.println("Р’РІРµРґРёС‚Рµ С„РёР»СЊС‚СЂ: ");
                 str = br.readLine();
                 filtered = repository.filtr(Record.filtredByNumber, str);
                 break;
             case "4":
-                System.out.println("Введите фильтр: ");
+                System.out.println("Р’РІРµРґРёС‚Рµ С„РёР»СЊС‚СЂ: ");
                 str = br.readLine();
                 filtered = repository.filtr(Record.filtredByCategory, str);
                 break;
             default:
-                System.out.println("Некорректный ввод.");
+                System.out.println("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ.");
                 break;
         }
         return filtered;

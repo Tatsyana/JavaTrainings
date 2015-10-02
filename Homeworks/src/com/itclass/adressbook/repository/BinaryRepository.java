@@ -94,6 +94,7 @@ public class BinaryRepository implements Repository<Record, Long> {
         return records;
     }
 
+    //TODO оп€чатка, нужно serialization
     public void serizlization(Record entity) {
         File file = new File(FILE_PATH);
 

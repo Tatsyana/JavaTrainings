@@ -26,6 +26,7 @@ public interface Repository<T, ID> {
 
      void update();
 
+     // TODO это из появилось только в 8-й java, лучше пока нез всего этого делать, enterprise разработка еще только перешла на 7
      default List<T> filtr(Predicate<T> predicate, String str){
       return new ArrayList<T>();}
 }

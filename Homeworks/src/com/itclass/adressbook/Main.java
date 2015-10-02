@@ -16,23 +16,28 @@ import java.io.InputStreamReader;
  */
 public class Main {
 
+    // TODO РґР»СЏ С„Р°Р№Р»РѕРІ РїСЂРѕРµРєС‚Р° СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєРѕРґРёСЂРѕРІРєСѓ UTF-8
+
+    // TODO РІ С†РµР»РѕРј РЅРѕСЂРјР°Р»СЊРЅРѕ, РєРѕРЅРµС‡РЅРѕ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРµСЂРµРєР»СЋС‡Р°С‚СЊСЃСЏ РјРµР¶РґСѓ РёСЃС‚РѕС‡РЅРёРєР°РјРё РґР°РЅРЅС‹С…
     public static void main(String[] args) throws IOException {
 
-        InMemoryRepository.getInstance().add(Record.create("Александр", "Сайчук", new NumberPhone("Мобильный", "37545"), Category.NONE));
-        InMemoryRepository.getInstance().add(Record.create("Людмила", "Афанасенко", new NumberPhone("Домашний", "12345"), Category.COLLEAGUE));
-        InMemoryRepository.getInstance().add(Record.create("Татьяна", "Шерстобитова", new NumberPhone("Рабочий", "2345"), Category.FAMILY));
+        InMemoryRepository.getInstance().add(Record.create("РђР»РµРєСЃР°РЅРґСЂ", "РЎР°Р№С‡СѓРє", new NumberPhone("РњРѕР±РёР»СЊРЅС‹Р№", "37545"), Category.NONE));
+        InMemoryRepository.getInstance().add(Record.create("Р›СЋРґРјРёР»Р°", "РђС„Р°РЅР°СЃРµРЅРєРѕ", new NumberPhone("Р”РѕРјР°С€РЅРёР№", "12345"), Category.COLLEAGUE));
+        InMemoryRepository.getInstance().add(Record.create("РўР°С‚СЊСЏРЅР°", "РЁРµСЂСЃС‚РѕР±РёС‚РѕРІР°", new NumberPhone("Р Р°Р±РѕС‡РёР№", "2345"), Category.FAMILY));
         //    Repository<Record, Long> repository = new BinaryRepository("Homeworks/src/binary.txt");
         Helper.init(InMemoryRepository.getInstance());
         String key = "";
         User admin = new User("Tania", "13579", "Admin");
         User user1 = new User("Kate", "67543", "User");
         User user2 = new User("Igor", "000012", "User");
+
+        //TODO РЅРµ РїРѕРЅРёРјР°СЋ Р·Р°С‡РµРј СЃРѕР·РґР°РІР°С‚СЊ РµС‰Рµ РѕРґРЅРё РѕР±СЉРµРєС‚ РґР»СЏ С‡С‚РµРЅРёСЏ СЃ РєРѕРЅСЃРѕР»Рё, РµСЃР»Рё Сѓ РІР°СЃ РІ Helper СѓР¶Рµ РµСЃС‚СЊ РЅСѓР¶РЅС‹Рµ РјРµС‚РѕРґС‹ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Scanner
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String login;
         String password;
-        System.out.println("Введите логин: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ: ");
         login = br.readLine();
-        System.out.println("Введите пароль");
+        System.out.println("Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ");
         password = br.readLine();
 
 
@@ -50,7 +55,7 @@ public class Main {
                 try {
                     key = br.readLine();
                 } catch (IOException e) {
-                    System.err.println("Ошибка ввода." + e);
+                    System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
                 }
                 key = key.toLowerCase();
                 switch (key) {
@@ -65,7 +70,7 @@ public class Main {
                         break;
                     case "edit":
                     case "e":
-                        // предложить вывести всех
+                        // РїСЂРµРґР»РѕР¶РёС‚СЊ РІС‹РІРµСЃС‚Рё РІСЃРµС…
                         Helper.getInstance().printAllRecord();
                         Helper.getInstance().editRecord();
                         break;
@@ -73,7 +78,7 @@ public class Main {
                     case "s":
                         Helper.getInstance().sortRecord();
 
-                        //осознанно не поставлен break: после сортировки вывод информации
+                        //РѕСЃРѕР·РЅР°РЅРЅРѕ РЅРµ РїРѕСЃС‚Р°РІР»РµРЅ break: РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРІРєРё РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё
                     case "p":
                     case "print":
                         Helper.getInstance().printAllRecord();
@@ -86,7 +91,7 @@ public class Main {
                     case "0":
                         return;
                     default:
-                        System.out.println("Вы ввели неверное значение. Повторите попытку. ");
+                        System.out.println("Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ. ");
                         break;
                 }
             }
@@ -102,7 +107,7 @@ public class Main {
                 try {
                     key = br.readLine();
                 } catch (IOException e) {
-                    System.err.println("Ошибка ввода." + e);
+                    System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
                 }
                 key = key.toLowerCase();
                 switch (key) {
@@ -111,7 +116,7 @@ public class Main {
                     case "s":
                         Helper.getInstance().sortRecord();
 
-                        //осознанно не поставлен break: после сортировки вывод информации
+                        //РѕСЃРѕР·РЅР°РЅРЅРѕ РЅРµ РїРѕСЃС‚Р°РІР»РµРЅ break: РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРІРєРё РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё
                     case "p":
                     case "print":
                         Helper.getInstance().printAllRecord();
@@ -124,13 +129,13 @@ public class Main {
                     case "0":
                         return;
                     default:
-                        System.out.println("Вы ввели неверное значение. Повторите попытку. ");
+                        System.out.println("Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ. ");
                         break;
                 }
             }
         } else {
 
-            System.out.println("С таким логином и паролем у вас нет прав доступа");
+            System.out.println("РЎ С‚Р°РєРёРј Р»РѕРіРёРЅРѕРј Рё РїР°СЂРѕР»РµРј Сѓ РІР°СЃ РЅРµС‚ РїСЂР°РІ РґРѕСЃС‚СѓРїР°");
         }
 
     }
@@ -150,7 +155,7 @@ public class Main {
 //            try {
 //                key = br.readLine();
 //            } catch (IOException e) {
-//                System.err.println("Ошибка ввода." + e);
+//                System.err.println("РћС€РёР±РєР° РІРІРѕРґР°." + e);
 //            }
 //            key = key.toLowerCase();
 //            switch (key) {
@@ -165,14 +170,14 @@ public class Main {
 //                    break;
 //                case "edit":
 //                case "e":
-//                    // предложить вывести всех
+//                    // РїСЂРµРґР»РѕР¶РёС‚СЊ РІС‹РІРµСЃС‚Рё РІСЃРµС…
 //                    Helper.printAllRecord();
 //                    Helper.editRecord();
 //                    break;
 //                case "sort":
 //                    Helper.sortRecord();
 //
-//                    //осознанно не поставлен break: после сортировки вывод информации
+//                    //РѕСЃРѕР·РЅР°РЅРЅРѕ РЅРµ РїРѕСЃС‚Р°РІР»РµРЅ break: РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРІРєРё РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё
 //                case "print":
 //                    Helper.printAllRecord();
 //                    //        printBooks(bookList);
@@ -180,7 +185,7 @@ public class Main {
 //                case "0":
 //                    return;
 //                default:
-//                    System.out.println("Вы ввели неверное значение. Повторите попытку. ");
+//                    System.out.println("Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ. ");
 //                    break;
 //            }
 //        }
